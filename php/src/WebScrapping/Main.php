@@ -72,7 +72,7 @@ class Main
     }
     return $tags;
   }
-  private static function scrapAuthorsAndInstitutions(\DOMDocument $dom) {
+  private static function scrapAuthorsAndInstitutions(\DOMDocument $dom): array {
 
     $xpath = new DOMXPath($dom);
     $elements = $xpath->query("//a[@class='paper-card p-lg bd-gradient-left']");
@@ -91,7 +91,12 @@ class Main
       $institutionsNames = [];
       foreach ($institutions as $institution) {
         echo $institution->nodeValue. PHP_EOL;
+        $institutionsNames[] = [
+          'institutions' => $institution->nodeValue
+        ];
       }
+      $authorAndInst[] = [$authorsNames, $institutionsNames];
     }
+    return $authorAndInst;
   }
 }
