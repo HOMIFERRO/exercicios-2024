@@ -86,6 +86,12 @@ class Main
           'authors' => $author->nodeValue
         ];
       }
+
+      $institutions = $xpath->query(".//div[@class='authors']/span/@title", $element);
+      $institutionsNames = [];
+      foreach ($institutions as $institution) {
+        echo $institution->nodeValue. PHP_EOL;
+      }
     }
   }
 }
