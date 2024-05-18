@@ -106,7 +106,7 @@ class Main
   private static function writeToExcel(array $volumeInfo, array $titles, array $tags): void
   {
 
-    $filePath = __DIR__ . '/../../src/planinha.xlsx';
+    $filePath = __DIR__ . '/../../src/planilha.xlsx';
     $writer = WriterEntityFactory::createXLSXWriter();
 
     $writer->openToFile($filePath);
