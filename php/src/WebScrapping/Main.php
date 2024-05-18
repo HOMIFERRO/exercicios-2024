@@ -38,6 +38,8 @@ class Main {
   }
   private static function scrapTitles(\DOMDocument $dom) {
     
+    $xpath = new DOMXPath($dom);
+    $elements = $xpath->query('//h4[@class="my-xs paper-title"]');
   }
 
 }
