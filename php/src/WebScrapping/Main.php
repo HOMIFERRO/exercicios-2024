@@ -2,6 +2,7 @@
 
 namespace Chuva\Php\WebScrapping;
 
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use DOMDocument;
 use DOMXPath;
 
@@ -98,5 +99,12 @@ class Main
       $authorAndInst[] = [$authorsNames, $institutionsNames];
     }
     return $authorAndInst;
+  }
+  private static function writeToExcel (array $volumeInfo): void {
+
+    $filePath = __DIR__. '/../../src/site.xlsx';
+    $writer = WriterEntityFactory::createXLSXWriter();
+
+    $writer->openToFile($filePath);
   }
 }
