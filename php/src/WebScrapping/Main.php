@@ -126,10 +126,15 @@ class Main
       $rowData[] = isset($tags[$i]) ? $tags[$i]['tags'] : '';
 
       $authors = isset($authorAndInst[$i][0]) ? $authorAndInst[$i][0] : [];
+      $inst = isset($authorAndInst[$i][1]) ? $authorAndInst[$i][1] : [];
 
       for ($j = 0; $j < 16; $j++) {
         $author = isset($authors[$j]['authors']) ? $authors[$j]['authors'] : '';
         $rowData[] = $author;
+      }
+      for ($k = 0; $k < 16; $k++) {
+        $institution = isset($inst[$k]['institutions']) ? $inst[$k]['institutions'] : '';
+        $rowData[] = $institution;
       }
 
       $writer->addRow(WriterEntityFactory::createRowFromArray($rowData));
