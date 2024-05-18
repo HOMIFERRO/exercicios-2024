@@ -36,14 +36,19 @@ class Main {
     }
     return $volumeInfo;
   }
-  private static function scrapTitles(\DOMDocument $dom) {
+  private static function scrapTitles(\DOMDocument $dom): array {
     
     $xpath = new DOMXPath($dom);
     $elements = $xpath->query('//h4[@class="my-xs paper-title"]');
 
+    $titles[] = [];
     foreach ($elements as $element) {
       echo $element->nodeValue. PHP_EOL;
+      $titles[] = [
+        'titles' => $element->nodeValue
+      ];
     }
+    return $titles;
   }
 
 }
