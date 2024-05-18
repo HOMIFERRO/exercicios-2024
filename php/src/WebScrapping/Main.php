@@ -27,8 +27,8 @@ class Main
     $volumeInfo = self::scrapVolumeInfo($dom);
     $titles = self::scrapTitles($dom);
     $tags= self::scrapTags($dom);
-    self::scrapAuthorsAndInstitutions($dom);
-    self::writeToExcel($volumeInfo, $titles, $tags);
+    $authorAndInst = self::scrapAuthorsAndInstitutions($dom);
+    self::writeToExcel($volumeInfo, $titles, $tags, $authorAndInst);
   }
   private static function scrapVolumeInfo(\DOMDocument $dom): array
   {
@@ -103,7 +103,7 @@ class Main
     }
     return $authorAndInst;
   }
-  private static function writeToExcel(array $volumeInfo, array $titles, array $tags): void
+  private static function writeToExcel(array $volumeInfo, array $titles, array $tags, $authorAndInst): void
   {
 
     $filePath = __DIR__ . '/../../src/planilha.xlsx';
@@ -116,7 +116,7 @@ class Main
     ];
     $writer->addRow(WriterEntityFactory::createRowFromArray($headRow));
 
-    $rowCount = max(count($volumeInfo), count($titles), count($tags));
+    $rowCount = max(count($volumeInfo), count($titles), count($tags), count($authorAndInst));
 
     for ($i = 0; $i < $rowCount; $i++) {
       $rowData = [];
@@ -124,6 +124,13 @@ class Main
       $rowData[] = isset($volumeInfo[$i]) ? $volumeInfo[$i]['volumeInfo'] : '';
       $rowData[] = isset($titles[$i]) ? $titles[$i]['titles'] : '';
       $rowData[] = isset($tags[$i]) ? $tags[$i]['tags'] : '';
+
+      $authors = isset($authorAndInst[$i][0]) ? $authorAndInst[$i][0] : [];
+
+      for ($j = 0; $j < 16; $j++) {
+        $author = isset($authors[$j]['authors']) ? $authors[$j]['authors'] : '';
+        $rowData[] = $author;
+      }
 
       $writer->addRow(WriterEntityFactory::createRowFromArray($rowData));
     }
