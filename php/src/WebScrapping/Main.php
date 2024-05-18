@@ -19,5 +19,8 @@ class Main {
     // Write your logic to save the output file bellow.
     print_r($data);
   }
+  private static function scrapAuthorsAndInstitutions(\DOMDocument $dom) {
+    
+  }
 
 }
