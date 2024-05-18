@@ -24,10 +24,11 @@ class Main
 
     // Write your logic to save the output file bellow.
     print_r($data);
-    self::scrapVolumeInfo($dom);
+    $volumeInfo = self::scrapVolumeInfo($dom);
     self::scrapTitles($dom);
     self::scrapTags($dom);
     self::scrapAuthorsAndInstitutions($dom);
+    self::writeToExcel($volumeInfo);
   }
   private static function scrapVolumeInfo(\DOMDocument $dom): array
   {
@@ -59,30 +60,32 @@ class Main
     }
     return $titles;
   }
-  private static function scrapTags(\DOMDocument $dom): array {
+  private static function scrapTags(\DOMDocument $dom): array
+  {
 
     $xpath = new DOMXPath($dom);
-    $elements= $xpath->query('//div[@class="tags mr-sm"]');
+    $elements = $xpath->query('//div[@class="tags mr-sm"]');
 
     $tags[] = [];
     foreach ($elements as $element) {
-      echo $element->nodeValue. PHP_EOL;
+      echo $element->nodeValue . PHP_EOL;
       $tags[] = [
         'tags' => $element->nodeValue
       ];
     }
     return $tags;
   }
-  private static function scrapAuthorsAndInstitutions(\DOMDocument $dom): array {
+  private static function scrapAuthorsAndInstitutions(\DOMDocument $dom): array
+  {
 
     $xpath = new DOMXPath($dom);
     $elements = $xpath->query("//a[@class='paper-card p-lg bd-gradient-left']");
 
     foreach ($elements as $element) {
-      $authors =$xpath->query(".//div[@class='authors']/span", $element);
+      $authors = $xpath->query(".//div[@class='authors']/span", $element);
       $authorsNames = [];
       foreach ($authors as $author) {
-        echo $author->nodeValue. PHP_EOL;
+        echo $author->nodeValue . PHP_EOL;
         $authorsNames[] = [
           'authors' => $author->nodeValue
         ];
@@ -91,7 +94,7 @@ class Main
       $institutions = $xpath->query(".//div[@class='authors']/span/@title", $element);
       $institutionsNames = [];
       foreach ($institutions as $institution) {
-        echo $institution->nodeValue. PHP_EOL;
+        echo $institution->nodeValue . PHP_EOL;
         $institutionsNames[] = [
           'institutions' => $institution->nodeValue
         ];
@@ -100,11 +103,29 @@ class Main
     }
     return $authorAndInst;
   }
-  private static function writeToExcel (array $volumeInfo): void {
+  private static function writeToExcel(array $volumeInfo): void
+  {
 
-    $filePath = __DIR__. '/../../src/site.xlsx';
+    $filePath = __DIR__ . '/../../src/planinha.xlsx'; 
     $writer = WriterEntityFactory::createXLSXWriter();
 
     $writer->openToFile($filePath);
+
+    $headRow = [
+      'ID', 'Title', 'Author1', 'Institution 1'
+    ];
+    $writer->addRow(WriterEntityFactory::createRowFromArray($headRow));
+
+    $rowCount = max(count($volumeInfo));
+
+    for ($i = 0; $i < $rowCount; $i++) {
+      $rowData = [];
+
+      $rowData[] = isset($volumeInfo[$i]) ? $volumeInfo[$i]['volumeInfo'] : '';
+    
+    }
+    $writer->addRow(WriterEntityFactory::createRowFromArray($rowData));
+
+    $writer->close();
   }
 }
