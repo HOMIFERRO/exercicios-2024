@@ -26,6 +26,7 @@ class Main
     self::scrapVolumeInfo($dom);
     self::scrapTitles($dom);
     self::scrapTags($dom);
+    self::scrapAuthorsAndInstitutions($dom);
   }
   private static function scrapVolumeInfo(\DOMDocument $dom): array
   {
