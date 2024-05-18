@@ -36,5 +36,8 @@ class Main {
     }
     return $volumeInfo;
   }
+  private static function scrapTitles(\DOMDocument $dom) {
+    
+  }
 
 }
