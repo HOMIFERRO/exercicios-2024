@@ -80,7 +80,10 @@ class Main
       $authors =$xpath->query(".//div[@class='authors']/span", $element);
       $authorsNames = [];
       foreach ($authors as $author) {
-        
+        echo $author->nodeValue. PHP_EOL;
+        $authorsNames[] = [
+          'authors' => $author->nodeValue
+        ];
       }
     }
   }
