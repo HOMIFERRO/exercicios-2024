@@ -2,6 +2,8 @@
 
 namespace Chuva\Php\WebScrapping;
 
+use DOMXPath;
+
 /**
  * Runner for the Webscrapping exercice.
  */
@@ -19,8 +21,10 @@ class Main {
     // Write your logic to save the output file bellow.
     print_r($data);
   }
-  private static function scrapAuthorsAndInstitutions(\DOMDocument $dom) {
-    
+  private static function scrapVolumeInfo(\DOMDocument $dom) {
+
+    $xpath = new DOMXPath($dom);
+    $elements = $xpath->query('//div[@class="volume-info"]');
   }
 
 }
