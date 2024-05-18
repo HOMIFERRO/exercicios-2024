@@ -60,5 +60,9 @@ class Main
 
     $xpath = new DOMXPath($dom);
     $elements= $xpath->query('//div[@class="tags mr-sm"]');
+
+    foreach ($elements as $element) {
+      echo $element->nodeValue. PHP_EOL;
+    }
   }
 }
