@@ -22,14 +22,19 @@ class Main {
     print_r($data);
     self::scrapVolumeInfo($dom);
   }
-  private static function scrapVolumeInfo(\DOMDocument $dom) {
+  private static function scrapVolumeInfo(\DOMDocument $dom): array {
 
     $xpath = new DOMXPath($dom);
     $elements = $xpath->query('//div[@class="volume-info"]');
     
+    $volumeInfo = [];
     foreach ($elements as $element) {
       echo $element->nodeValue. PHP_EOL;
+      $volumeInfo[] = [
+        'volumeInfo'=> $element->nodeValue
+      ];
     }
+    return $volumeInfo;
   }
 
 }
