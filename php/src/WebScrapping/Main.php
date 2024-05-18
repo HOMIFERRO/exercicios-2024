@@ -71,4 +71,17 @@ class Main
     }
     return $tags;
   }
+  private static function scrapAuthorsAndInstitutions(\DOMDocument $dom) {
+
+    $xpath = new DOMXPath($dom);
+    $elements = $xpath->query("//a[@class='paper-card p-lg bd-gradient-left']");
+
+    foreach ($elements as $element) {
+      $authors =$xpath->query(".//div[@class='authors']/span", $element);
+      $authorsNames = [];
+      foreach ($authors as $author) {
+        
+      }
+    }
+  }
 }
