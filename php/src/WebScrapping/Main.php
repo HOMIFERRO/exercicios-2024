@@ -40,6 +40,10 @@ class Main {
     
     $xpath = new DOMXPath($dom);
     $elements = $xpath->query('//h4[@class="my-xs paper-title"]');
+
+    foreach ($elements as $element) {
+      echo $element->nodeValue. PHP_EOL;
+    }
   }
 
 }
