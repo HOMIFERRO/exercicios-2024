@@ -56,13 +56,18 @@ class Main
     }
     return $titles;
   }
-  private static function scrapTags(\DOMDocument $dom) {
+  private static function scrapTags(\DOMDocument $dom): array {
 
     $xpath = new DOMXPath($dom);
     $elements= $xpath->query('//div[@class="tags mr-sm"]');
 
+    $tags[] = [];
     foreach ($elements as $element) {
       echo $element->nodeValue. PHP_EOL;
+      $tags[] = [
+        'tags' => $element->nodeValue
+      ];
     }
+    return $tags;
   }
 }
