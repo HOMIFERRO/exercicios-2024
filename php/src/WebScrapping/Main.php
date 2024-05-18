@@ -2,6 +2,7 @@
 
 namespace Chuva\Php\WebScrapping;
 
+use DOMDocument;
 use DOMXPath;
 
 /**
@@ -56,6 +57,8 @@ class Main
     return $titles;
   }
   private static function scrapTags(\DOMDocument $dom) {
-    
+
+    $xpath = new DOMXPath($dom);
+    $elements= $xpath->query('//div[@class="tags mr-sm"]');
   }
 }
