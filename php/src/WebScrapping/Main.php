@@ -25,6 +25,7 @@ class Main
     print_r($data);
     self::scrapVolumeInfo($dom);
     self::scrapTitles($dom);
+    self::scrapTags($dom);
   }
   private static function scrapVolumeInfo(\DOMDocument $dom): array
   {
