@@ -26,7 +26,7 @@ class Main
     print_r($data);
     $volumeInfo = self::scrapVolumeInfo($dom);
     $titles = self::scrapTitles($dom);
-    $tags= self::scrapTags($dom);
+    $tags = self::scrapTags($dom);
     $authorAndInst = self::scrapAuthorsAndInstitutions($dom);
     self::writeToExcel($volumeInfo, $titles, $tags, $authorAndInst);
   }
@@ -112,7 +112,10 @@ class Main
     $writer->openToFile($filePath);
 
     $headRow = [
-      'ID', 'Title', 'Type', 'Author1', 'Institution 1'
+      'ID', 'Title', 'Type', 'Author 1', 'Author 2', 'Author 3', 'Author 4', 'Author 5', 'Author 6', 'Author 7', 'Author 8', 'Author 9', 'Author 10',
+      'Author 1', 'Author 12', 'Author 13', 'Author 14', 'Author 15', 'Institution 1', 'Institution 2', 'Institution 3', 'Institution 4', 'Institution 5',
+       'Institution 6', 'Institution 7', 'Institution 8', 'Institution 9', 'Institution 10', 'Institution 11', 'Institution 12', 'Institution 13',
+        'Institution 14', 'Institution 15', 'Institution 16'
     ];
     $writer->addRow(WriterEntityFactory::createRowFromArray($headRow));
 
